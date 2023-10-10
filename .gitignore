@@ -1,0 +1,10 @@
+__pycache__/
+
+# VS Code
+.vscode/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# exclude data from source control
+/data/
