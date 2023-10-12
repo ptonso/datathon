@@ -2,10 +2,10 @@ import os
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-import folium
-import shap
 
 from sklearn import decomposition
+import folium 
+import numpy as np
 
 plt.style.use('ggplot')
 
@@ -35,109 +35,6 @@ def corr_map(correlation_matrix, savename=False):
     if savename:
         save(savename,fig.savefig)
     plt.show()
-
-def pca_2d(X, y=None, savename=False):
-    '''
-    receives X features
-    return a scatter plot of 2 components pca
-    and color it with third component
-    '''
-    fig = plt.figure(figsize=(10,10))
-
-    pca = decomposition.PCA(n_components=3)
-    view = pca.fit_transform(X)
-
-    if y is not None:
-        plt.title(f'PCA colored by {y.name}')
-        plt.scatter(view[:,0], view[:,1], c=y, cmap='viridis')
-        plt.colorbar(label=y.name)
-    else:
-        plt.scatter(view[:,0], view[:,1], c=view[:,2])
-    plt.xlabel('PCA-1')
-    plt.ylabel('PCA-2')
-
-    if savename :
-        save(savename, fig.savefig)
-
-    plt.show()
-
-def pca_3d(X, y=None, multiple_graph=False, savename=False):
-    '''
-    Plot a 3-component PCA.
-    If multiple_graph: plot a 2x2 grid with a 3D PCA in position 1x1, and three 2D combinations in other positions.
-    If not multiple_graph: just plot a 3D PCA.
-    '''
-
-    pca = decomposition.PCA(n_components=4)
-    view = pca.fit_transform(X)
-
-    if not multiple_graph:
-        fig = plt.figure(figsize=(10, 10))
-        ax = fig.add_subplot(111, projection='3d')
-
-        if y is not None:
-            scatter = ax.scatter(view[:,0], view[:,1], view[:,2], c=y, cmap='viridis')
-            fig.colorbar(scatter, label=y.name)
-        else:
-            ax.scatter(view[:,0], view[:,1], view[:,2],  c=view[:,3], cmap='viridis')
-
-        ax.set_xlabel('Comp 1')
-        ax.set_ylabel('Comp 2')
-        ax.set_zlabel('Comp 3')
-
-
-    else:
-        fig, axs = plt.subplots(2, 2, figsize=(12, 10))
-        axs = axs.flatten()
-
-        combinations = [(0,0), (0, 1), (0, 2), (1, 2)]
-
-        for i, (x_idx, y_idx) in enumerate(combinations):
-            if i == 0:
-                ax = fig.add_subplot(2, 2, 1, projection='3d')
-                if y is not None:
-                    scatter = ax.scatter(view[:,0], view[:,1], view[:,2], c=y, cmap='viridis')
-                else:
-                    ax.scatter(view[:,0], view[:,1], view[:,2], c=view[:,3], cmap='viridis')
-                ax.set_xlabel('Comp 1')
-                ax.set_ylabel('Comp 2')
-                ax.set_zlabel('Comp 3')
-            else:
-                ax = axs[i]
-                if y is not None:
-                    scatter = ax.scatter(view[:, x_idx], view[:, y_idx], c=y, cmap='viridis')
-                else:
-                    ax.scatter(view[:, x_idx], view[:, y_idx], c=view[:,3], cmap='viridis')
-                ax.set_xlabel(f'Comp {x_idx+1}')
-                ax.set_ylabel(f'Comp {y_idx+1}')
-
-        if y is not None:
-            fig.colorbar(scatter, ax=axs.ravel(), label=y.name)
-            fig.subplots_adjust(left=0.1, right=0.75, bottom=0.1, top=0.95, wspace=0.3, hspace=0.2)
-        else:
-            fig.subplots_adjust(left=0.1, right=0.9, bottom=0.1, top=0.95, wspace=0.2, hspace=0.2)
-        
-    if y is not None:
-        fig.suptitle(f'PCA colored by {y.name}', fontsize=16)
-    else:
-        fig.suptitle('PCA colored by next component', fontsize=16)
-        
-    if savename:
-        save(savename, plt.savefig)
-
-    plt.show()
-
-def shapping_rf(rf, sample, savename=None):
-
-    fig = plt.figure(figsize=(10,10))
-
-    explainer = shap.TreeExplainer(rf)
-    shap_values = explainer.shap_values(sample)
-    shap.summary_plot(shap_values, sample)
-
-    if savename :
-        save(savename, fig.savefig)
-
 
 def boxplot(data, title, savename=None, figsize=(8, 6)):
 
@@ -225,12 +122,81 @@ def distribution(data, title, savename=None, figsize=(8, 6)):
     plt.title(title)
     
     if savename:
-        save(savename, plt.savefig)
+        plt.savefig(savename)
     
     plt.show()
 
+def pca_2d(X, savename=False):
+    '''
+    receives X features
+    return a scatter plot of 2 components pca
+    and color it with third component
+    '''
+    fig = plt.figure(figsize=(10,10))
 
-def bubble_map(dataframe, coluna_estado, savename=None):
+    pca = decomposition.PCA(n_components=3)
+    view = pca.fit_transform(X)
+
+    plt.scatter(view[:,0], view[:,1], c=view[:,2])
+    plt.xlabel('PCA-1')
+    plt.ylabel('PCA-2')
+
+    if savename :
+        save(savename, fig.savefig)
+
+    plt.show()
+
+
+def pca_3d(X, multiple_graph=False, savename=False):
+    '''
+    plot a 3 components pca
+    if multiple_graph: more 3 2d combinations        
+    '''
+
+    pca = decomposition.PCA(n_components=4)
+    view = pca.fit_transform(X)
+
+    fig = plt.figure(figsize=(10,10))
+    ax = fig.add_subplot(221, projection='3d')
+    alpha = 0.4
+
+    if not multiple_graph:
+
+        ax.scatter(view[:,0], view[:,1], view[:,2], c=view[:,3], alpha=alpha)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
+
+        plt.show()
+
+    if multiple_graph:
+
+        ax.scatter(view[:,0], view[:,1], view[:,2], c=view[:,3], alpha=alpha)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
+
+        ax = fig.add_subplot(222)
+        ax.scatter(view[:,0], view[:,1], c=view[:,2], alpha=alpha)
+        ax.set_xlabel('y')
+        ax.set_ylabel('z')
+
+        ax = fig.add_subplot(223)
+        ax.scatter(view[:,0], view[:,2], c=view[:,1], alpha=alpha)
+        ax.set_xlabel('x')
+        ax.set_ylabel('z')
+
+        ax = fig.add_subplot(224)
+        ax.scatter(view[:,1], view[:,2], c=view[:,3], alpha=alpha)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+
+    if savename :
+        save(savename, fig.savefig)
+
+    plt.show()
+
+def bubble_map(dataframe, coluna_estado):
 
     estados = {
         "AC": [-9.0479, -70.5265],
@@ -276,9 +242,6 @@ def bubble_map(dataframe, coluna_estado, savename=None):
             tamanho_bolha = valores_normalizados[estado]
             folium.CircleMarker(location=coordenadas, radius=tamanho_bolha*3, color='blue', fill=True, fill_color='blue', fill_opacity=0.6, popup=f"{estado}: {contagem_estados[estado]} ocorrências").add_to(mapa)
     
-    if savename:
-        save(savename, plt.savefig)
-
     return mapa
     
 
@@ -327,8 +290,6 @@ def pin_map(dataframe, coluna_estado):
         coordenadas = estados[estado]
         folium.Marker(location=coordenadas, popup=estado).add_to(mapa)
     
-    if savename:
-        save(savename, plt.savefig)
-
     return mapa
+
 
