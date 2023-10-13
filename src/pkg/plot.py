@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -230,7 +231,7 @@ def distribution(data, title, savename=None, figsize=(8, 6)):
     plt.show()
 
 
-def bubble_map(dataframe, coluna_estado, savename=None):
+def bubble_map(dataframe, coluna_estado):
 
     estados = {
         "AC": [-9.0479, -70.5265],
@@ -275,9 +276,6 @@ def bubble_map(dataframe, coluna_estado, savename=None):
         if estado in valores_normalizados:
             tamanho_bolha = valores_normalizados[estado]
             folium.CircleMarker(location=coordenadas, radius=tamanho_bolha*3, color='blue', fill=True, fill_color='blue', fill_opacity=0.6, popup=f"{estado}: {contagem_estados[estado]} ocorrências").add_to(mapa)
-    
-    if savename:
-        save(savename, plt.savefig)
 
     return mapa
     
@@ -326,9 +324,6 @@ def pin_map(dataframe, coluna_estado):
         estado = row[coluna_estado]
         coordenadas = estados[estado]
         folium.Marker(location=coordenadas, popup=estado).add_to(mapa)
-    
-    if savename:
-        save(savename, plt.savefig)
 
     return mapa
 

@@ -1,0 +1,81 @@
+                               Adjusted R-Squared  R-Squared       RMSE  \
+Model                                                                     
+LGBMRegressor                                0.62       0.62  163732.55   
+HistGradientBoostingRegressor                0.61       0.61  164428.72   
+XGBRegressor                                 0.61       0.61  165964.24   
+RandomForestRegressor                        0.58       0.58  172094.62   
+ExtraTreesRegressor                          0.56       0.56  175365.16   
+BaggingRegressor                             0.54       0.54  178970.55   
+GradientBoostingRegressor                    0.47       0.47  192146.67   
+DecisionTreeRegressor                        0.13       0.13  246513.84   
+PoissonRegressor                             0.12       0.13  247320.03   
+LassoCV                                      0.12       0.12  248268.27   
+LassoLarsCV                                  0.12       0.12  248274.23   
+LarsCV                                       0.12       0.12  248274.23   
+Lasso                                        0.12       0.12  248355.73   
+LassoLars                                    0.12       0.12  248355.73   
+TransformedTargetRegressor                   0.12       0.12  248355.89   
+LinearRegression                             0.12       0.12  248355.89   
+LassoLarsIC                                  0.12       0.12  248355.89   
+Lars                                         0.12       0.12  248355.89   
+Ridge                                        0.12       0.12  248356.00   
+RidgeCV                                      0.12       0.12  248356.95   
+BayesianRidge                                0.12       0.12  248363.68   
+OrthogonalMatchingPursuitCV                  0.12       0.12  248555.20   
+KNeighborsRegressor                          0.11       0.11  249744.76   
+ElasticNet                                   0.09       0.09  252018.09   
+TweedieRegressor                             0.07       0.07  254393.70   
+OrthogonalMatchingPursuit                    0.07       0.07  255142.64   
+ElasticNetCV                                 0.00       0.00  263995.75   
+DummyRegressor                              -0.00      -0.00  264507.57   
+HuberRegressor                              -0.01      -0.01  265452.99   
+PassiveAggressiveRegressor                  -0.03      -0.03  268719.48   
+NuSVR                                       -0.05      -0.05  270511.51   
+SVR                                         -0.07      -0.07  273805.69   
+MLPRegressor                                -0.09      -0.09  275557.51   
+ExtraTreeRegressor                          -0.24      -0.24  294030.19   
+LinearSVR                                   -1.26      -1.25  396912.09   
+AdaBoostRegressor                           -2.73      -2.72  510361.80   
+RANSACRegressor                            -83.21     -83.08 2425000.72   
+SGDRegressor                              -145.27    -145.04 3195944.15   
+
+                               Time Taken  
+Model                                      
+LGBMRegressor                        0.32  
+HistGradientBoostingRegressor        0.93  
+XGBRegressor                         1.22  
+RandomForestRegressor               82.82  
+ExtraTreesRegressor                 29.24  
+BaggingRegressor                     7.42  
+GradientBoostingRegressor            9.31  
+DecisionTreeRegressor                1.07  
+PoissonRegressor                     0.03  
+LassoCV                              0.34  
+LassoLarsCV                          0.14  
+LarsCV                               0.13  
+Lasso                                0.03  
+LassoLars                            0.05  
+TransformedTargetRegressor           0.05  
+LinearRegression                     0.05  
+LassoLarsIC                          0.07  
+Lars                                 0.04  
+Ridge                                0.03  
+RidgeCV                              0.05  
+BayesianRidge                        0.07  
+OrthogonalMatchingPursuitCV          0.09  
+KNeighborsRegressor                  5.84  
+ElasticNet                           0.04  
+TweedieRegressor                     0.03  
+OrthogonalMatchingPursuit            0.04  
+ElasticNetCV                         0.30  
+DummyRegressor                       0.02  
+HuberRegressor                       0.21  
+PassiveAggressiveRegressor           0.43  
+NuSVR                              100.49  
+SVR                                 93.98  
+MLPRegressor                        23.10  
+ExtraTreeRegressor                   0.32  
+LinearSVR                            0.06  
+AdaBoostRegressor                    2.47  
+RANSACRegressor                      0.25  
+SGDRegressor                         0.08  
