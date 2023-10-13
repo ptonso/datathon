@@ -128,11 +128,11 @@ def pca_3d(X, y=None, multiple_graph=False, savename=False):
 
     plt.show()
 
-def shapping_rf(rf, sample, savename=None):
+def shapping_tree(model, sample, savename=None):
 
     fig = plt.figure(figsize=(10,10))
 
-    explainer = shap.TreeExplainer(rf)
+    explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(sample)
     shap.summary_plot(shap_values, sample)
 
