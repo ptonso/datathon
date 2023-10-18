@@ -7,3 +7,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # exclude data from source control
+/data/
+/models/
+/reports/
